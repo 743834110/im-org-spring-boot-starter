@@ -1,84 +1,79 @@
 package xyz.berby.im.service;
 
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.Query;
-
-import javax.persistence.EntityManager;
+import xyz.berby.im.entity.ServerConfig;
+import xyz.berby.im.vo.Pager;
 import java.util.List;
 
-public interface ServerConfigService<T, ID> {
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.data.repository.CrudRepository#findAll()
-     */
-    List<T> findAll();
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.data.repository.PagingAndSortingRepository#findAll(org.springframework.data.domain.Sort)
-     */
-    List<T> findAll(Sort sort);
-
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.data.repository.CrudRepository#findAll(java.lang.Iterable)
-     */
-    List<T> findAllById(Iterable<ID> ids);
-
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.data.repository.CrudRepository#save(java.lang.Iterable)
-     */
-    <S extends T> List<S> saveAll(Iterable<S> entities);
+/**
+ * (ServerConfig)表服务接口
+ *
+ * @author makejava
+ * @since 2018-11-03 16:43:37
+ */
+public interface ServerConfigService {
 
     /**
-     * Flushes all pending changes to the database.
-     */
-    void flush();
-
-    /**
-     * Saves an entity and flushes changes instantly.
+     * 通过ID查询单条数据
      *
-     * @param entity
-     * @return the saved entity
+     * @param configId 主键
+     * @return 实例对象
      */
-    <S extends T> S saveAndFlush(S entity);
+    ServerConfig queryById(String configId);
 
     /**
-     * Deletes the given entities in a batch which means it will create a single {@link Query}. Assume that we will clear
-     * the {@link javax.persistence.EntityManager} after the call.
+     * 查询多条数据
      *
-     * @param entities
+     * @param offset 查询起始位置
+     * @param limit 查询条数
+     * @return 对象列表
      */
-    void deleteInBatch(Iterable<T> entities);
+    List<ServerConfig> queryAllByLimit(int offset, int limit);
 
     /**
-     * Deletes all entities in a batch call.
+     * 
+     * 根据分页对象查询数据
+     * @param pager 分页对象
+     * @return 对象列表
      */
-    void deleteAllInBatch();
+     Pager<ServerConfig> queryByPager(Pager<ServerConfig> pager);
 
     /**
-     * Returns a reference to the entity with the given identifier.
+     * 根据分页对象统计记录条数
+     * @param pager 分页对象
+     * @return 对象列表
+     */
+    Pager<ServerConfig> countByPager(Pager<ServerConfig> pager);    
+    /**
+     * 新增数据
      *
-     * @param id must not be {@literal null}.
-     * @return a reference to the entity with the given identifier.
-     * @see EntityManager#getReference(Class, Object)
-     * @throws javax.persistence.EntityNotFoundException if no entity exists for given {@code id}.
+     * @param serverConfig 实例对象
+     * @return 实例对象
      */
-    T getOne(ID id);
+    ServerConfig insert(ServerConfig serverConfig);
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.data.repository.query.QueryByExampleExecutor#findAll(org.springframework.data.domain.Example)
+    /**
+     * 修改数据
+     *
+     * @param serverConfig 实例对象
+     * @return 实例对象
      */
-    <S extends T> List<S> findAll(Example<S> example);
+    ServerConfig update(ServerConfig serverConfig);
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.data.repository.query.QueryByExampleExecutor#findAll(org.springframework.data.domain.Example, org.springframework.data.domain.Sort)
+    /**
+     * 通过主键删除数据
+     *
+     * @param configId 主键
+     * @return 是否成功
      */
+    boolean deleteById(String configId);
 
-    <S extends T> List<S> findAll(Example<S> example, Sort sort);
+    /**
+     * 通过主键数组删除数据
+     * @param configIds 主键数组
+     * @return 操作结果
+     */
+    boolean deleteByIds(String[] configIds);    
+
 }

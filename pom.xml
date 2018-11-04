@@ -46,13 +46,11 @@
       <version>${project.version}</version>
     </dependency>
 
-    <!--logging-->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-logging</artifactId>
-    </dependency>
+
+
 
   </dependencies>
+
 
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->

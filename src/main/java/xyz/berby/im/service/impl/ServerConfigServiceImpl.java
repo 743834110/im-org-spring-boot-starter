@@ -1,75 +1,114 @@
 package xyz.berby.im.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
-import xyz.berby.im.dao.ServerConfigDao;
 import xyz.berby.im.entity.ServerConfig;
+import xyz.berby.im.dao.ServerConfigDao;
 import xyz.berby.im.service.ServerConfigService;
+import xyz.berby.im.vo.Pager;
+import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import javax.annotation.Resource;
 import java.util.List;
 
-@Service
-@Transactional
-public class ServerConfigServiceImpl implements ServerConfigService<ServerConfig, String> {
-
-    @Autowired
+/**
+ * (ServerConfig)表服务实现类
+ *
+ * @author makejava
+ * @since 2018-11-03 16:43:36
+ */
+@Service("serverConfigService")
+public class ServerConfigServiceImpl implements ServerConfigService {
+    @Resource
     private ServerConfigDao serverConfigDao;
 
+    /**
+     * 通过ID查询单条数据
+     *
+     * @param configId 主键
+     * @return 实例对象
+     */
     @Override
-    public List<ServerConfig> findAll() {
-        return this.serverConfigDao.findAll();
+    public ServerConfig queryById(String configId) {
+        return this.serverConfigDao.queryById(configId);
     }
 
+    /**
+     * 查询多条数据
+     *
+     * @param offset 查询起始位置
+     * @param limit 查询条数
+     * @return 对象列表
+     */
     @Override
-    public List<ServerConfig> findAll(Sort sort) {
-        return this.serverConfigDao.findAll(sort);
+    public List<ServerConfig> queryAllByLimit(int offset, int limit) {
+        return this.serverConfigDao.queryAllByLimit(offset, limit);
+    }
+    
+    /**
+     * 
+     * 根据分页对象查询数据
+     * @param pager 分页对象
+     * @return 对象列表
+     */
+     public Pager<ServerConfig> queryByPager(Pager<ServerConfig> pager) {
+        pager = this.countByPager(pager);                
+        List<ServerConfig> result = serverConfigDao.queryByPager(pager);
+        pager.setResult(result);
+        return pager;
+     }
+
+    /**
+     * 根据分页对象统计记录条数
+     * @param pager 分页对象
+     * @return 对象列表
+     */
+    public Pager<ServerConfig> countByPager(Pager<ServerConfig> pager) {
+        int size = serverConfigDao.countByPager(pager);
+        pager.setSize(size);
+        return pager;
     }
 
+    /**
+     * 新增数据
+     *
+     * @param serverConfig 实例对象
+     * @return 实例对象
+     */
     @Override
-    public List<ServerConfig> findAllById(Iterable<String> strings) {
-        return this.serverConfigDao.findAllById(strings);
+    public ServerConfig insert(ServerConfig serverConfig) {
+        this.serverConfigDao.insert(serverConfig);
+        return serverConfig;
     }
 
+    /**
+     * 修改数据
+     *
+     * @param serverConfig 实例对象
+     * @return 实例对象
+     */
     @Override
-    public <S extends ServerConfig> List<S> saveAll(Iterable<S> entities) {
-        return null;
+    public ServerConfig update(ServerConfig serverConfig) {
+        this.serverConfigDao.update(serverConfig);
+        return this.queryById(serverConfig.getConfigId());
     }
 
+    /**
+     * 通过主键删除数据
+     *
+     * @param configId 主键
+     * @return 是否成功
+     */
     @Override
-    public void flush() {
-        this.serverConfigDao.flush();
+    public boolean deleteById(String configId) {
+        return this.serverConfigDao.deleteById(configId) > 0;
     }
-
-    @Override
-    public <S extends ServerConfig> S saveAndFlush(S entity) {
-        return this.saveAndFlush(entity);
-    }
-
-    @Override
-    public void deleteInBatch(Iterable<ServerConfig> entities) {
-        this.serverConfigDao.deleteInBatch(entities);
-    }
-
-    @Override
-    public void deleteAllInBatch() {
-        this.serverConfigDao.deleteAllInBatch();
-    }
-
-    @Override
-    public ServerConfig getOne(String s) {
-        return this.serverConfigDao.getOne(s);
-    }
-
-    @Override
-    public <S extends ServerConfig> List<S> findAll(Example<S> example) {
-        return this.serverConfigDao.findAll(example);
-    }
-
-    @Override
-    public <S extends ServerConfig> List<S> findAll(Example<S> example, Sort sort) {
-        return this.serverConfigDao.findAll(example, sort);
+    
+    /**
+     * 通过主键数组删除数据
+     * @param configIds 主键数组
+     * @return 操作结果
+     */
+     @Override
+    public boolean deleteByIds(String[] configIds) {
+        return this.serverConfigDao.deleteByIds(configIds) == configIds.length;
     }
 }

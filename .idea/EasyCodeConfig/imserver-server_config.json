@@ -1,0 +1,59 @@
+{
+  "name" : "ServerConfig",
+  "comment" : null,
+  "fullColumn" : [ {
+    "name" : "configId",
+    "comment" : null,
+    "type" : null,
+    "shortType" : null,
+    "custom" : false,
+    "ext" : { }
+  }, {
+    "name" : "mappingKey",
+    "comment" : "配置key",
+    "type" : null,
+    "shortType" : null,
+    "custom" : false,
+    "ext" : { }
+  }, {
+    "name" : "mappingValue",
+    "comment" : "配置value",
+    "type" : null,
+    "shortType" : null,
+    "custom" : false,
+    "ext" : { }
+  }, {
+    "name" : "createPerson",
+    "comment" : null,
+    "type" : null,
+    "shortType" : null,
+    "custom" : false,
+    "ext" : { }
+  }, {
+    "name" : "createTime",
+    "comment" : null,
+    "type" : "java.util.Date",
+    "shortType" : null,
+    "custom" : false,
+    "ext" : { }
+  }, {
+    "name" : "modifyPerson",
+    "comment" : null,
+    "type" : null,
+    "shortType" : null,
+    "custom" : false,
+    "ext" : { }
+  }, {
+    "name" : "modifyTime",
+    "comment" : null,
+    "type" : "java.util.Date",
+    "shortType" : null,
+    "custom" : false,
+    "ext" : { }
+  } ],
+  "pkColumn" : null,
+  "otherColumn" : null,
+  "savePackageName" : "xyz.berby.im",
+  "savePath" : "./src/main/java/xyz/berby/im",
+  "saveModelName" : "im-org-spring-boot-starter"
+}
