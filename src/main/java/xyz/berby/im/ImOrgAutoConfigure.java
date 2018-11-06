@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Configuration;
 import xyz.berby.im.entity.ServerConfig;
 import xyz.berby.im.service.ServerConfigService;
 import xyz.berby.im.vo.Pager;
@@ -18,7 +19,8 @@ import javax.annotation.Resource;
  *
  */
 
-@EnableAutoConfiguration(exclude = ImOrgAutoConfigure.class)
+//@EnableAutoConfiguration(exclude = ImOrgAutoConfigure.class)
+@Configuration
 public class ImOrgAutoConfigure {
 
     public static void main( String[] args ) {
